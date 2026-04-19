@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Detail | Alien Runner: Planet Dash 3D</title>
+
+<style>
+:root {
+    --bg-main: #f6f9ff;
+    --bg-secondary: #ffffff;
+
+    --accent-1: #6c63ff;
+    --accent-2: #00c6ff;
+    --accent-3: #ff7ab6;
+
+    --text-main: #1e293b;
+    --text-dim: #64748b;
+
+    --glass: rgba(255, 255, 255, 0.6);
+    --border: rgba(0,0,0,0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+/* 🌈 BACKGROUND */
+body {
+    background: linear-gradient(135deg, #f6f9ff, #eef2ff);
+    color: var(--text-main);
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+body::before, body::after {
+    content: "";
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+}
+
+body::before {
+    background: var(--accent-1);
+    top: -100px;
+    left: -100px;
+}
+
+body::after {
+    background: var(--accent-2);
+    bottom: -120px;
+    right: -120px;
+}
+
+/* NAV */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    color: transparent;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.back-link {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    color: var(--accent-1);
+}
+
+/* HERO */
+.project-hero {
+    padding: 150px 5% 50px;
+    text-align: center;
+}
+
+.category-tag {
+    color: var(--accent-1);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+.project-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: fadeUp 1s ease;
+    margin-bottom: 20px;
+}
+
+/* VIDEO */
+.showcase-container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 5%;
+}
+
+.main-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    transition: 0.4s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.main-video:hover {
+    transform: scale(1.01);
+}
+
+.main-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* GRID */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Increased from 200px */
+    gap: 20px;
+}
+
+.grid-img {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Forces all images to have the same rectangular shape */
+    object-fit: cover; /* Crops the image to fit the container without stretching */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.4s;
+    background: var(--glass);
+    border: 1px solid var(--border);
+}
+
+.grid-img:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(108, 99, 255, 0.15);
+    border-color: var(--accent-2);
+}
+
+/* CONTENT */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    max-width: 1100px;
+    margin: auto;
+    padding: 50px 5%;
+}
+
+.info-card {
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid var(--border);
+    height: fit-content;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+.info-item {
+    margin-bottom: 20px;
+}
+
+.info-label {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-weight: 600;
+    color: var(--accent-1);
+}
+
+/* TEXT */
+.description h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+.description p {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.description strong {
+    color: var(--text-main);
+}
+
+/* TECH CARDS */
+.tech-card {
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent-2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.tech-card h3 {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* LISTS */
+.description ul:not(.mechanics-list) {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 10px;
+}
+
+.description li:not(.mechanics-list li) {
+    position: relative;
+    padding-left: 25px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    font-size: 1.05rem;
+}
+
+.description li:not(.mechanics-list li)::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+/* Specific list styles for the intro section */
+.mechanics-list {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    padding-left: 20px;
+    font-size: 1.1rem;
+}
+
+.mechanics-list strong {
+    color: var(--accent-1);
+}
+
+/* PILLS */
+.tech-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.pill {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #eef2ff;
+    border: 1px solid var(--border);
+    transition: 0.3s;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.pill:hover {
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    color: white;
+    border-color: transparent;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 60px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media(max-width:850px){
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    .info-card {
+        order: -1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <a href="index.html" class="logo">DEV_PORTFOLIO</a>
+    <a href="index.html" class="back-link">← Back to Missions</a>
+</nav>
+
+<header class="project-hero">
+    <span class="category-tag">Endless Runner / Procedural Generation</span>
+    <h1 class="project-title">Alien Runner: Planet Dash 3D</h1>
+</header>
+
+<main>
+
+<div class="showcase-container">
+    <div class="main-video">
+       <iframe 
+    src="https://www.youtube.com/embed/AQ1SD_qtPlE" 
+    title="Alien Runner Gameplay" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen>
+</iframe>
+    </div>
+
+    <div class="image-grid">
+        <img src="ground.png"Screenshot" class="grid-img">
+        <img src="Checkpoitns.png" alt="Screenshot" class="grid-img">
+        <img src="Rotation.png"Screenshot" class="grid-img">
+        <img src="Drag.png" alt="Screenshot" class="grid-img">
+    </div>
+</div>
+
+<section class="content-grid">
+
+<div class="description">
+    <h2>The Mission</h2>
+    <p>
+        In <strong>Alien Runner: Planet Dash 3D</strong>, the player controls an alien runner exploring three unique planetary environments: Asteroid, Jupiter, and Neptune. The primary objective is to cover the maximum distance while collecting energy bubbles scattered throughout the level. Collecting 150 bubbles unlocks the next planet, encouraging progression and exploration across increasingly challenging environments.
+    </p>
+    <p>Each level introduces distinct gameplay mechanics:</p>
+    <ul class="mechanics-list">
+        <li><strong>Asteroid:</strong> Features wide void gaps as the main obstacle, requiring precise timing and jumps.</li>
+        <li><strong>Jupiter:</strong> Introduces temporary tiles that collapse immediately after landing, forcing quick reactions and continuous movement.</li>
+        <li><strong>Neptune:</strong> Combines void gaps and falling tiles with deadly spikes that instantly eliminate the player on contact, creating the most challenging experience.</li>
+    </ul>
+    <p>
+        To overcome long gaps that cannot be crossed with standard jumps, the player can use a level-flipping mechanic, allowing the world to rotate and create new paths dynamically. The game focuses on reflex-based gameplay, risk management, and mastering mechanics to achieve higher distances and unlock new levels.
+    </p>
+    
+    <hr style="border: 0; height: 1px; background: var(--border); margin: 40px 0;">
+    <h2 style="margin-bottom: 30px;">Technical Breakdown</h2>
+    <p>
+        This project is developed using Unity Engine, focusing on scalable system design, real-time simulation, and performance-aware architecture. Each feature is implemented with an emphasis on both gameplay realism and computational efficiency. Key technical implementations include:
+    </p>
+    
+    <div class="tech-card">
+        <h3>Procedural Generation System</h3>
+        <ul>
+            <li>Developed using Perlin Noise to dynamically create tiles, void gaps, temporary platforms, and spike obstacles in real time.</li>
+            <li>The noise function takes the current tile position as input, which is further transformed using controlled division, multiplication constants, and pre-seeded random offsets per iteration.</li>
+            <li>This ensures a balance between unpredictability and structured gameplay progression.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Adaptive Tile Logic</h3>
+        <ul>
+            <li>Implemented logic driven by noise thresholds.</li>
+            <li>Low noise values generate void gaps requiring precise jumps; mid-range values spawn temporary tiles that collapse after player contact; high values produce hazard tiles (spikes) that trigger instant player death on collision.</li>
+            <li>This layered system allows smooth difficulty scaling across levels.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Level-Flipping Mechanic</h3>
+        <ul>
+            <li>Designed a system using Quaternion-based rotation (<code>Quaternion.RotateTowards</code>), enabling smooth and controlled world transitions.</li>
+            <li>This allows players to traverse otherwise unreachable long gaps by dynamically altering the playable surface orientation.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Responsive Player Movement</h3>
+        <ul>
+            <li>Built a movement and jump system using <code>Physics.Raycast</code> for ground detection.</li>
+            <li>Based on raycast hit results, the player’s downward velocity is dynamically manipulated to simulate a spring-damped jump effect, resulting in more natural and responsive landing and takeoff behavior.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Endless Progression Loop</h3>
+        <ul>
+            <li>Created a continuous loop using a checkpoint-based system.</li>
+            <li>Checkpoints utilize <code>OnTriggerEnter</code> events to invoke tile generation functions, ensuring continuous level extension as the player advances.</li>
+            <li>Each checkpoint recursively spawns the next segment along with future checkpoints.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Coroutine Synchronization</h3>
+        <ul>
+            <li>Integrated coroutines (<code>IEnumerator</code>) to synchronize tile generation with gameplay states, particularly during level rotation.</li>
+            <li>This prevents tile misalignment and ensures spatial consistency when new segments are spawned mid-transition.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Memory & Performance Optimization</h3>
+        <ul>
+            <li>Applied optimizations through dynamic tile lifecycle management.</li>
+            <li>Tiles that fall behind the player are destroyed or recycled, significantly reducing memory overhead and maintaining stable performance on mobile hardware.</li>
+        </ul>
+    </div>
+
+    <div class="tech-card">
+        <h3>Dynamic Visual Environments</h3>
+        <ul>
+            <li>Developed visually dynamic environments using Shader Graph, enabling real-time procedural control over tile textures and skybox gradients.</li>
+            <li>This allows each planetary level to have distinct color palettes and atmospheric effects, enhancing immersion and visual feedback.</li>
+        </ul>
+    </div>
+
+</div>
+
+<aside class="info-card">
+    <div class="info-item">
+        <span class="info-label">Role</span>
+        <div class="info-value">Solo Developer / Lead Programmer</div>
+    </div>
+
+    <div class="info-item">
+        <span class="info-label">Platform</span>
+        <div class="info-value">Android (Google Play)</div>
+    </div>
+
+    <div class="info-item">
+        <span class="info-label">Development Time</span>
+        <div class="info-value">4 Months</div>
+    </div>
+    
+    <div class="info-item">
+        <span class="info-label">Status</span>
+        <div class="info-value">Production (100+ Downloads)</div>
+    </div>
+
+    <div class="info-item" style="margin-top: 30px;">
+        <span class="info-label">Arsenal Used</span>
+        <div class="tech-pills">
+            <span class="pill">Unity</span>
+            <span class="pill">C#</span>
+            <span class="pill">Shader Graph</span>
+            <span class="pill">Procedural Generation</span>
+            <span class="pill">URP</span>
+            <span class="pill">Photoshop</span>
+        </div>
+    </div>
+</aside>
+
+</section>
+</main>
+
+<footer>
+    <p>&copy; 2026 Vibhoo Nikhil Sahu. Built with Glassmorphism.</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = "translateY(0)";
+        }
+    });
+});
+
+// Added .tech-card and other text elements to the observer
+document.querySelectorAll(".description > p, .description > h2, .description > ul, .info-card, .grid-img, .tech-card").forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(40px)";
+    el.style.transition = "all 0.8s ease";
+    observer.observe(el);
+});
+</script>
+
+</body>
+</html>

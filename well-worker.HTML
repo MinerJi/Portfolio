@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Detail | Well Worker</title>
+    <style>
+        :root {
+            --bg-main: #f6f9ff;
+            --bg-secondary: #ffffff;
+
+            --accent-1: #6c63ff;
+            --accent-2: #00c6ff;
+            --accent-3: #ff7ab6;
+
+            --text-main: #1e293b;
+            --text-dim: #64748b;
+
+            --glass: rgba(255, 255, 255, 0.6);
+            --border: rgba(0,0,0,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* 🌈 BACKGROUND */
+        body {
+            background: linear-gradient(135deg, #f6f9ff, #eef2ff);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+        }
+
+        body::before {
+            background: var(--accent-1);
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            background: var(--accent-2);
+            bottom: -120px;
+            right: -120px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            color: transparent;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .back-link {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: var(--accent-1);
+        }
+
+        /* --- HERO SECTION --- */
+        .project-hero {
+            padding: 150px 5% 50px;
+            text-align: center;
+        }
+
+        .category-tag {
+            color: var(--accent-1);
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+        }
+
+        .project-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: fadeUp 1s ease;
+            margin-bottom: 20px;
+        }
+
+        /* --- MEDIA SHOWCASE --- */
+        .showcase-container {
+            max-width: 1100px;
+            margin: 0 auto 50px;
+            padding: 0 5%;
+        }
+
+        .main-video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            transition: 0.4s;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        .main-video:hover {
+            transform: scale(1.01);
+        }
+
+        .main-video iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+   .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Increased from 200px */
+    gap: 20px;
+}
+
+    .grid-img {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Forces all images to have the same rectangular shape */
+    object-fit: cover; /* Crops the image to fit the container without stretching */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.4s;
+    background: var(--glass);
+    border: 1px solid var(--border);
+}
+
+        .grid-img:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- CONTENT SECTION --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 5%;
+        }
+
+        .info-card {
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 20px;
+            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .info-item { margin-bottom: 20px; }
+        
+        .info-label {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .info-value { 
+            font-weight: 600; 
+            color: var(--accent-1); 
+        }
+
+        /* TEXT */
+        .description h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .description p {
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        /* TECH CARDS */
+        .tech-card {
+            background: var(--glass);
+            backdrop-filter: blur(14px);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* LISTS */
+        .description ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 10px;
+        }
+
+        .description li {
+            position: relative;
+            padding-left: 25px;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+        }
+
+        .description li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-2);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+        
+        .dev-warning {
+            background: rgba(108, 99, 255, 0.05);
+            border-left: 4px solid var(--accent-1);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin-top: 40px;
+            color: var(--text-main);
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        /* --- TECH PILLS --- */
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .pill {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #eef2ff;
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-main);
+            transition: 0.3s;
+        }
+
+        .pill:hover {
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            color: white;
+            border-color: transparent;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px;
+            border-top: 1px solid var(--border);
+            color: var(--text-dim);
+        }
+
+        /* ANIMATION */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 850px) {
+            .content-grid { grid-template-columns: 1fr; }
+            .info-card { order: -1; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">DEV_PORTFOLIO</a>
+        <a href="index.html" class="back-link">← Back to Missions</a>
+    </nav>
+
+    <header class="project-hero">
+        <span class="category-tag">First-Person Simulation / Resource Management</span>
+        <h1 class="project-title">Well Worker</h1>
+    </header>
+
+    <main>
+        <div class="showcase-container">
+            <div class="main-video">
+                <iframe src="https://www.youtube.com/embed/xFObbvqN5nA?si=p6wCeIHE512W6Rbv" allowfullscreen></iframe>
+            </div>
+
+            <div class="image-grid">
+                <img src="Bucket.png" alt="Screenshot" class="grid-img">
+                <img src="scary.png" alt="Screenshot" class="grid-img">
+                <img src="dijstra.png" alt="Screenshot" class="grid-img">
+                <img src="ni.png" alt="Screenshot" class="grid-img">
+                <img src="iron item.png" alt="Screenshot" class="grid-img">
+                <img src="Inventory.png" alt="Screenshot" class="grid-img">
+            </div>
+        </div>
+
+        <section class="content-grid">
+            <div class="description">
+                <h2>The Mission</h2>
+                 <p>Developing a first-person simulation game that combines resource management systems with a subtle horror-driven environment. The gameplay focuses on task-based progression, where players gather resources, grow plants, and craft tools while navigating a mysterious world.</p>
+                 
+                 <p>Implemented core systems including a smooth first-person controller, inventory management, and a crafting pipeline to support structured gameplay progression. Designed interactive mechanics such as a well-based resource system, enabling dynamic player interaction with the environment.</p>
+                 
+                 <p>Integrated a mini-map navigation system utilizing Dijkstra’s Algorithm for efficient pathfinding and navigation assistance. This project marks the first implementation of Dijkstra’s Algorithm, which was later extended and applied in the Taxi Simulator project, demonstrating scalability and reuse of pathfinding systems.</p>
+                 
+                 <p>Enhanced visual immersion using Unity Shader Graph for custom skybox rendering, combined with atmospheric lighting and environment design to establish a subtle horror experience.</p>
+                 
+                 <p>Focused on blending simulation mechanics with environmental storytelling to create an engaging and immersive gameplay loop.</p>
+
+                 <hr style="border: 0; height: 1px; background: var(--border); margin: 40px 0;">
+                 <h2 style="margin-bottom: 30px;">Technical Implementation</h2>
+
+                 <div class="tech-card">
+                     <h3>Well Interaction System (Bucket Mechanic)</h3>
+                     <ul>
+                         <li>Simulated rope using Unity Line Renderer with a bucket prefab attached to its endpoint.</li>
+                         <li>Synchronized bucket movement with Line Renderer endpoint via real-time Y-axis updates based on input (hold/swipe).</li>
+                         <li>Animated rope using shader-based texture offset to create realistic rope movement illusion.</li>
+                         <li>Implemented trigger-based interaction to activate water surface when bucket reaches well depth.</li>
+                     </ul>
+                 </div>
+
+                 <div class="tech-card">
+                     <h3>Inventory System (Enum-Driven Architecture)</h3>
+                     <ul>
+                         <li>Developed modular inventory system using component-based item scripts attached to collectibles.</li>
+                         <li>Defined item properties using enums (item type, equip slot, unique ID).</li>
+                         <li>Implemented trigger-based item pickup with script validation.</li>
+                         <li>Currently uses partial linear search for item instantiation; planned migration to dictionary-based lookup for O(1) performance.</li>
+                     </ul>
+                 </div>
+
+                 <div class="tech-card">
+                     <h3>Crafting System (Data-Driven Recipe Engine)</h3>
+                     <ul>
+                         <li>Designed crafting system without hardcoded conditions using a data-driven approach.</li>
+                         <li>Enabled multiple crafting stations (anvil, table) using a shared reusable script.</li>
+                         <li>Represented recipes using hierarchical UI containers (parent = recipe, children = required items).</li>
+                         <li>Parsed requirements into linked lists for dynamic validation and comparison with inventory data.</li>
+                         <li>Provided real-time feedback via color states (craftable / insufficient resources).</li>
+                         <li>Instantiated crafted items into inventory and re-evaluated all recipes dynamically.</li>
+                     </ul>
+                 </div>
+
+                 <div class="tech-card">
+                     <h3>Pathfinding & Mini-Map System</h3>
+                     <ul>
+                         <li>Implemented navigation using Dijkstra’s Algorithm on a custom graph structure.</li>
+                         <li>Built a static 2D mini-map using UI elements as graph nodes for optimized performance.</li>
+                         <li>Connected nodes via linked list-based adjacency structure configurable in Unity Inspector.</li>
+                         <li>Projected player world position (X, Z) onto mini-map coordinates for tracking.</li>
+                         <li>Computed nearest nodes for player and destination, then calculated shortest path using Dijkstra.</li>
+                         <li>Stored path as a linked list and applied interpolation for smooth transitions between nodes.</li>
+                         <li>Recalculated paths dynamically (~1.2s intervals) for responsive navigation.</li>
+                         <li>First project implementing this system, later extended and reused in Taxi Simulator.</li>
+                     </ul>
+                 </div>
+
+                 <div class="tech-card">
+                     <h3>Visual & Atmosphere</h3>
+                     <ul>
+                         <li>Created custom skybox using Unity Shader Graph.</li>
+                         <li>Designed atmospheric lighting to establish a subtle horror environment.</li>
+                         <li>Focused on immersion through environmental design and visual feedback systems.</li>
+                     </ul>
+                 </div>
+
+                 <div class="dev-warning">
+                    ⚠️ <strong>Development Status:</strong> The project is actively under development, with continuous feature additions and system refinements.
+                 </div>
+            </div>
+
+            <aside class="info-card">
+                <div class="info-item">
+                    <span class="info-label">Role</span>
+                    <span class="info-value">Solo Developer / Lead Programmer</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Platform</span>
+                    <span class="info-value">Android (Google Play)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Development Time</span>
+                    <span class="info-value">Ongoing</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Status</span>
+                    <span class="info-value">In Development</span>
+                </div>
+                
+                <span class="info-label" style="margin-top: 30px;">Arsenal Used</span>
+                <div class="tech-pills">
+                    <span class="pill">Unity</span>
+                    <span class="pill">C#</span>
+                    <span class="pill">Shader Graph</span>
+                    <span class="pill">Dijkstra's Algorithm</span>
+                    <span class="pill">First-Person Controller</span>
+                    <span class="pill">Inventory Systems</span>
+                </div>
+            </aside>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Vibhoo Nikhil Sahu. Built with Glassmorphism.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        });
+
+        // Added .tech-card and other text elements to the observer
+        document.querySelectorAll(".description > p, .description > h2, .info-card, .grid-img, .tech-card, .dev-warning").forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = "translateY(40px)";
+            el.style.transition = "all 0.8s ease";
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
